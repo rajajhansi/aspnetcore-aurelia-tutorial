@@ -1,0 +1,20 @@
+{
+  "name": "modern",
+  "version": "1.0.0",
+  "description": "This project is created to match the parts of a series blog posts in my .NET blog: http://opensourcedotnetter.blogspot.com/",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "moment": "^2.13.0",
+    "momentjs": "^1.1.10"
+  },
+  "devDependencies": {
+    "typescript": "^2.0.0-dev.20160703",
+    "typings": "^1.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raja Mani",
+  "license": "ISC"
+}
