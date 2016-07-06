@@ -1,0 +1,22 @@
+{
+  "name": "modern",
+  "version": "1.0.0",
+  "description": "We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.",
+  "main": "index.js",
+  "dependencies": {
+    "systemjs": "^0.19.31"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^1.1.1",
+    "typescript": "^2.0.0-dev.20160703",
+    "typings": "^1.3.1",
+    "webpack": "^2.1.0-beta.15"
+  },
+  "scripts": {
+    "dotnet-watch": "dotnet watch run",
+    "dotnet-run": "\"dotnet build\" && dotnet run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raja Mani",
+  "license": "ISC"
+}

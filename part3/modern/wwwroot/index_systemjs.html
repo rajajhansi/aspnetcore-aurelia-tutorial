@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Welcome to ASP.NET Core 1.0</title>
+    <script src="../lib/system.js"></script>
+</head>
+
+<body>
+    <div id="greeting">
+    </div>
+    <script>    
+        System.config({
+            packages: {
+                "app":{
+                    "defaultExtension" : "js",
+                    "main": "main.js"
+                }
+            }
+        });
+        System.import("app").then(app => {            
+            var m = new app.Main();
+            document.getElementById("greeting").innerHTML = "<h1>" + m.greetingMessage + "</h1>";   
+        });;     
+                 
+    </script>
+</body>
+
+</html>
