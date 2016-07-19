@@ -1,4 +1,4 @@
-export class Greeter {
+class Greeter {
     constructor(private message: string) {
     }
     sayHello() {
@@ -8,3 +8,5 @@ export class Greeter {
         return `Hello ${this.message} from TypeScript!`;
     }
 }
+
+export { Greeter };
