@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "bootstrap-datepicker": "registry:dt/bootstrap-datepicker#0.0.0+20160812112642",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "nprogress": "registry:dt/nprogress#0.0.0+20160316155526",
+    "toastr": "registry:dt/toastr#2.1.1+20160510010435"
+  }
+}
