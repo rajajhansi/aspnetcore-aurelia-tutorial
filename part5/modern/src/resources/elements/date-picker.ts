@@ -11,14 +11,23 @@ export class DatePicker {
   constructor( private element) {
   }
 
+  dateClicked() {
+    $(".datepicker").datepicker("update", this.value);
+    $(".datepicker").datepicker("show");
+  }
   attached() {
-    var dateValue = new Date(this.value);
+    console.log("attached");
     $(this.element).find(".datepicker")
       .datepicker({
         format: this.format,
         startDate: "01/01/1900",
         autoclose: true,
-        todayBtn: true
+        todayBtn: true,
+        showOnFocus: false
+      })
+      .on("click", (e) =>{
+        $(".datepicker").datepicker("update", this.value);
+        $(".datepicker").datepicker("show");
       })
       .on("changeDate", (e) => {
         this.value = moment(e.date).format("MM/DD/YYYY");

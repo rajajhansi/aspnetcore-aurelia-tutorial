@@ -1,3 +1,8 @@
 <template>
-  <input class="datepicker" data-provide="datepicker" value.bind="value">
+  <div class="input-group date">
+    <input type="text" class="form-control datepicker" data-provide="datepicker" value.bind="value">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th" click.delegate="dateClicked()"></span>
+    </div>
+</div>
 </template>
