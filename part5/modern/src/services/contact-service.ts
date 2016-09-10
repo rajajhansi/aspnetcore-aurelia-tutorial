@@ -1,11 +1,11 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {IContact} from "../contact-manager/contact";
+import {inject} from "aurelia-framework";
+import {HttpClient, json} from "aurelia-fetch-client";
+import {IContact} from "../contact-manager/icontact";
 import {Config} from "../common/config";
 import {IContactService} from "./icontact-service";
 
 // polyfill fetch client conditionally
-const fetch = !self.fetch ? System.import('isomorphic-fetch') : Promise.resolve(self.fetch);
+const fetch = !self.fetch ? System.import("isomorphic-fetch") : Promise.resolve(self.fetch);
 
 @inject(HttpClient)
 export class ContactService implements IContactService {
@@ -27,7 +27,7 @@ isRequesting = false;
 
     getAll() {
         this.isRequesting = true;
-        return new  Promise( async resolve => {
+        return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             const response = await http.fetch("contacts");
             this.contacts = await response.json();
@@ -39,7 +39,7 @@ isRequesting = false;
 
     search(keyword: string) {
     this.isRequesting = true;
-    return new  Promise( async resolve => {
+    return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             const response = await http.fetch("contacts/search", {
               method: "post",
@@ -54,7 +54,7 @@ isRequesting = false;
 
   get(id: number) {
     this.isRequesting = true;
-    return new  Promise( async resolve => {
+    return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             const response = await http.fetch(`contacts/${id}`);
             let foundContact = await response.json();
@@ -67,7 +67,7 @@ isRequesting = false;
 
   save(contact){
     this.isRequesting = true;
-     return new  Promise( async resolve => {
+     return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             const response = await http.fetch("contacts", {
               method: "put",
@@ -82,7 +82,7 @@ isRequesting = false;
 
    create() {
     this.isRequesting = true;
-    return new  Promise( async resolve => {
+    return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             let newContact = {
               id: 0,
@@ -101,13 +101,10 @@ isRequesting = false;
             this.isRequesting = false;
         });
   }
-  getContactIndex(id: number) : number {
-       return this.contacts.findIndex((c:IContact) => c.id === id);
-  }
 
   delete(id: number) {
     this.isRequesting = true;
-    return new  Promise( async resolve => {
+    return new  Promise( async (resolve: any) => {
             const http = this.httpClient;
             const response = await http.fetch("contacts", {
               method: "delete",

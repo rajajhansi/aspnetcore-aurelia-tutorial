@@ -3,7 +3,7 @@ import {areEqual} from "../services/utility";
 import * as toastr from "toastr";
 import {DialogService} from "aurelia-dialog";
 import {MessageBox} from "../resources/dialogs/message-box";
-import {IContact} from "./contact";
+import {IContact} from "./icontact";
 import {InMemoryContactService} from "../services/in-memory-contact-service";
 import {ContactViewed, ContactUpdated} from "../resources/messages/contact-messages";
 import {EventAggregator} from "aurelia-event-aggregator";

@@ -1,4 +1,4 @@
-import {IContact} from "../contact-manager/contact";
+import {IContact} from "../contact-manager/icontact";
 
 export interface IContactService {
     getAll();

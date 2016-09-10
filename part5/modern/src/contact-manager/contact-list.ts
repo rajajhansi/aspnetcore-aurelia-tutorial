@@ -4,7 +4,7 @@ import {InMemoryContactService} from "../services/in-memory-contact-service";
 import {ContactViewed, ContactUpdated} from "../resources/messages/contact-messages";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {ContactService} from "../services/contact-service";
-import {IContact} from "./contact";
+import {IContact} from "./icontact";
 
 @inject(Router, ContactService, EventAggregator)
 export class ContactList{
