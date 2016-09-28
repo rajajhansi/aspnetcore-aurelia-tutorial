@@ -18,8 +18,15 @@ namespace Modern.Infrastructure
 
         public override void Save(Contact contact)
         {
-            DbSet.Remove(contact);
-            DbSet.Add(contact);
+            var contactIndex = DbSet.FindIndex((c) => c.Id.CompareTo(contact.Id) == 0);
+            if(contactIndex >= 0)
+            {
+                DbSet[contactIndex] = contact;
+            }
+            else
+            {
+                DbSet.Add(contact);
+            }   
         }
 
         public override void Add(Contact contact)

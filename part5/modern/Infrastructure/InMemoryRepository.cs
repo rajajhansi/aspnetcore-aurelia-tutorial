@@ -27,8 +27,11 @@ namespace Modern.Infrastructure
         }
         public virtual void Edit(T entity)
         {
-            DbSet.Remove(entity);
-            DbSet.Add(entity);
+            var entityIndex = DbSet.FindIndex((c) => c.Id.CompareTo(entity.Id) == 0);
+            if(entityIndex >= 0)
+            {
+                DbSet[entityIndex] = entity;
+            }
         }
         public virtual void Save(T entity)
         {
