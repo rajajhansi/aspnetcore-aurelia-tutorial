@@ -1,0 +1,14 @@
+{
+  "name": "nodejs",
+  "dependencies": {},
+  "globalDependencies": {
+    "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
+    "bunyan": "registry:dt/bunyan#0.0.0+20160412155112",
+    "debug": "registry:dt/debug#0.0.0+20160317120654",
+    "express": "registry:dt/express#4.0.0+20160708185218",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160928124223",
+    "mime": "registry:dt/mime#0.0.0+20160316155526",
+    "restify": "registry:dt/restify#2.0.0+20160928142801",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  }
+}
