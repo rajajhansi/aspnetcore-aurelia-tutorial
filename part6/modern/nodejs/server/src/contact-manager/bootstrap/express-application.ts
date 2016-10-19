@@ -2,51 +2,21 @@
 import * as express from "express";
 import * as debug from "debug";
 import * as http from "http";
-import * as bodyParser from "body-parser";
 import {INodeJsApplication} from "./inodejs-application";
-import {IContact} from "../models/icontact";
-import {InMemoryContactService} from "../services/in-memory-contact-service";
+import {ExpressContactRouter} from "../routes/express-contact-router";
+import {inject} from "aurelia-dependency-injection";
 
-
+@inject(ExpressContactRouter)
 export class ExpressApplication implements INodeJsApplication {
   private expressApplication: express.Application;
-  private contactRouter: express.Router;
-  private contactService: InMemoryContactService;
 
-  constructor() {
+  constructor(private expressContactRouter: ExpressContactRouter) {
     // create expressjs application
     this.expressApplication = express();
-    // create expressjs router
-    this.contactRouter = express.Router();
 
-    this.contactService = new InMemoryContactService();
-    // configure application routes
-    this.configErrorRoutes();
-    this.configApiRoutes();
-  }
-
-  private configErrorRoutes() {
-     // catch 404 error
-    this.expressApplication.use(function(request: express.Request, response: express.Response, next: express.NextFunction) {
-        response.status(404).send("Not Found");
-    });
-
-    // catch 500 error (Internal Server Error)
-    this.expressApplication.use(function(err: any, request: express.Request, response: express.Response, next: express.NextFunction) {
-      console.log("Application Error");
-      response.sendStatus(500);
-    });
-  }
-
-   private configApiRoutes() {
-    this.contactRouter.route("/contacts")
-        .get((request: express.Request, response: express.Response) => {
-           this.contactService.getAll().then((contacts : IContact[]) => {
-                response.json(contacts);
-            });
-        });
-    this.expressApplication.use("/api", bodyParser.json());
-    this.expressApplication.use("/api", this.contactRouter);
+    // configure API and error routes   
+    this.expressContactRouter.configApiRoutes(this.expressApplication);
+    this.expressContactRouter.configErrorRoutes(this.expressApplication);
   }
 
   public bootstrap(port: number) {

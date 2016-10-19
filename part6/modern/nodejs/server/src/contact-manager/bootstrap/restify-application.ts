@@ -1,16 +1,15 @@
 "use strict";
 import * as restify from "restify";
 import {INodeJsApplication} from "./inodejs-application";
-import {IContact} from "../models/icontact";
-import {InMemoryContactService} from "../services/in-memory-contact-service";
+import {RestifyContactRouter} from "../routes/restify-contact-router";
+import {inject} from "aurelia-dependency-injection";
 
+@inject(RestifyContactRouter)
 export class RestifyApplication implements INodeJsApplication {
   private restifyApplication: restify.Server;
-  private contactService: InMemoryContactService;
 
-  constructor() {
+  constructor(private restifyContactRouter: RestifyContactRouter) {
     console.log("RestifyApplication ctor");
-    this.contactService = new InMemoryContactService();
     // create restify server
     this.restifyApplication = restify.createServer();
     restify.CORS.ALLOW_HEADERS.push("authorization");
@@ -21,31 +20,10 @@ export class RestifyApplication implements INodeJsApplication {
     this.restifyApplication.use(restify.queryParser());
     this.restifyApplication.use(restify.authorizationParser());
     this.restifyApplication.use(restify.fullResponse());
-    // configure error routes
-    this.configErrorRoutes();
-    // configure API routes
-    this.configApiRoutes();
-  }
 
-  private configErrorRoutes() {
-    // catch 404 and forward to error handler
-    this.restifyApplication.on("NotFound", function(request: restify.Request, response: restify.Response,
-     erorr: restify.HttpError, next: restify.Next) {
-      console.log("Invalid Url");
-      var customError = new Error("Not Found");
-      response.send(404, customError);
-      return next();
-    });
-  }
-
-  public configApiRoutes() {
-      var endpoint = "/api/contacts";
-        this.restifyApplication.get(endpoint, ((request: restify.Request, response: restify.Response, next: restify.Next) => {
-           this.contactService.getAll().then((contacts : IContact[]) => {
-                response.json(contacts);
-                return next();
-            });
-        }));
+    // configure API and error routes
+    this.restifyContactRouter.configApiRoutes(this.restifyApplication);
+    this.restifyContactRouter.configErrorRoutes(this.restifyApplication);
   }
 
   public bootstrap(port: number) {

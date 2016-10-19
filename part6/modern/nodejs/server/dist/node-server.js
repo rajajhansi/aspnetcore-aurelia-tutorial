@@ -1,9 +1,16 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+const aurelia_dependency_injection_1 = require("aurelia-dependency-injection");
 const nodejs_framework_factory_1 = require("./contact-manager/bootstrap/nodejs-framework-factory");
-class NodeServer {
-    constructor() {
+let NodeServer = class NodeServer {
+    constructor(nodejsFrameworkFactory) {
+        this.nodejsFrameworkFactory = nodejsFrameworkFactory;
         console.log("NodeServer ctor");
-        this.nodejsFrameworkFactory = new nodejs_framework_factory_1.NodeJsFrameworkFactory();
     }
     normalizePort(val) {
         "use strict";
@@ -25,8 +32,9 @@ class NodeServer {
         let server = this.nodejsFrameworkFactory.createNodeJsFramework(restFramework);
         server.bootstrap(port);
     }
-}
+};
+NodeServer = __decorate([
+    aurelia_dependency_injection_1.inject(nodejs_framework_factory_1.NodeJsFrameworkFactory)
+], NodeServer);
 exports.NodeServer = NodeServer;
-let nodeServer = new NodeServer();
-nodeServer.bootstrap();
 //# sourceMappingURL=node-server.js.map

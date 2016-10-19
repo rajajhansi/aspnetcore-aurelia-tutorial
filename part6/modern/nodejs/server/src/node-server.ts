@@ -1,10 +1,10 @@
+import {inject} from "aurelia-dependency-injection";
 import {NodeJsFrameworkFactory} from "./contact-manager/bootstrap/nodejs-framework-factory";
 
+@inject(NodeJsFrameworkFactory)
 export class NodeServer {
-  private nodejsFrameworkFactory : NodeJsFrameworkFactory;
-  constructor() {
+  constructor(private nodejsFrameworkFactory : NodeJsFrameworkFactory) {
     console.log("NodeServer ctor");
-    this.nodejsFrameworkFactory = new NodeJsFrameworkFactory();
   }
 
   private normalizePort(val: string) : any {
@@ -31,6 +31,3 @@ export class NodeServer {
     server.bootstrap(port);
   }
 }
-
-let nodeServer = new NodeServer();
-nodeServer.bootstrap();

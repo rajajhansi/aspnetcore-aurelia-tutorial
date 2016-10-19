@@ -4,6 +4,7 @@
         "target": "es6",
         "moduleResolution": "node",
         "noImplicitAny": false,
+        "experimentalDecorators": true,
         "sourceMap": true,
         "watch": true,
         "outDir": "server/dist"

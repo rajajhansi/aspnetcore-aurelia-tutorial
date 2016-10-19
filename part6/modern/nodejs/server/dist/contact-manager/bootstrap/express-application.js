@@ -1,40 +1,23 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 const express = require("express");
 const debug = require("debug");
 const http = require("http");
-const bodyParser = require("body-parser");
-const in_memory_contact_service_1 = require("../services/in-memory-contact-service");
-class ExpressApplication {
-    constructor() {
+const express_contact_router_1 = require("../routes/express-contact-router");
+const aurelia_dependency_injection_1 = require("aurelia-dependency-injection");
+let ExpressApplication = class ExpressApplication {
+    constructor(expressContactRouter) {
+        this.expressContactRouter = expressContactRouter;
         // create expressjs application
         this.expressApplication = express();
-        // create expressjs router
-        this.contactRouter = express.Router();
-        this.contactService = new in_memory_contact_service_1.InMemoryContactService();
-        // configure application routes
-        this.configErrorRoutes();
-        this.configApiRoutes();
-    }
-    configErrorRoutes() {
-        // catch 404 error
-        this.expressApplication.use(function (request, response, next) {
-            response.status(404).send("Not Found");
-        });
-        // catch 500 error (Internal Server Error)
-        this.expressApplication.use(function (err, request, response, next) {
-            console.log("Application Error");
-            response.sendStatus(500);
-        });
-    }
-    configApiRoutes() {
-        this.contactRouter.route("/contacts")
-            .get((request, response) => {
-            this.contactService.getAll().then((contacts) => {
-                response.json(contacts);
-            });
-        });
-        this.expressApplication.use("/api", bodyParser.json());
-        this.expressApplication.use("/api", this.contactRouter);
+        // configure API and error routes   
+        this.expressContactRouter.configApiRoutes(this.expressApplication);
+        this.expressContactRouter.configErrorRoutes(this.expressApplication);
     }
     bootstrap(port) {
         this.expressApplication.set("port", port);
@@ -80,6 +63,9 @@ class ExpressApplication {
             debugForExpress("Listening on " + bind);
         }
     }
-}
+};
+ExpressApplication = __decorate([
+    aurelia_dependency_injection_1.inject(express_contact_router_1.ExpressContactRouter)
+], ExpressApplication);
 exports.ExpressApplication = ExpressApplication;
 //# sourceMappingURL=express-application.js.map
