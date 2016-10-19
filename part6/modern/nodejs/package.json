@@ -17,6 +17,7 @@
     "@types/hapi": "^13.0.36",
     "@types/lodash": "^4.14.37",
     "aurelia-dependency-injection": "^1.2.0",
+    "aurelia-framework": "^1.0.7",
     "aurelia-polyfills": "^1.1.1",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
