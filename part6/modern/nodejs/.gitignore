@@ -236,6 +236,7 @@ _Pvt_Extensions
 .DS_STORE
 npm-debug.log*
 /dist
+/server/dist
 /build
 /typings
 /.awcache

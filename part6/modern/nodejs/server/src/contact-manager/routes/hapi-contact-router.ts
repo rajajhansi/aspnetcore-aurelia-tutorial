@@ -26,14 +26,20 @@ export class HapiContactRouter {
   }
 
   public configApiRoutes(hapiApplication: Hapi.Server) {
-      var endpoint = "/api/contacts";
+      var endpoint = "/api/contacts/{id?}";
         hapiApplication.route({
             path: endpoint,
             method: "GET",
             handler: (request: Hapi.Request, reply: Hapi.IReply) => {
-               this.contactService.getAll().then((contacts : IContact[]) => {
-                  reply(contacts);
-               });
+                if(request.params.id) {
+                    this.contactService.get(parseInt(request.params.id, 10)).then((contact : IContact) => {
+                        reply(contact);
+                    });
+                } else {
+                    this.contactService.getAll().then((contacts : IContact[]) => {
+                        reply(contacts);
+                    });
+                }
             }});
         hapiApplication.route({
             path: endpoint,

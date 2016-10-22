@@ -12,7 +12,9 @@ export class RestifyApplication implements INodeJsApplication {
     console.log("RestifyApplication ctor");
     // create restify server
     this.restifyApplication = restify.createServer();
-    restify.CORS.ALLOW_HEADERS.push("authorization");
+  }
+
+  public bootstrap(port: number) {
     this.restifyApplication.use(restify.CORS());
     this.restifyApplication.use(restify.pre.sanitizePath());
     this.restifyApplication.use(restify.acceptParser(this.restifyApplication.acceptable));
@@ -24,13 +26,9 @@ export class RestifyApplication implements INodeJsApplication {
     // configure API and error routes
     this.restifyContactRouter.configApiRoutes(this.restifyApplication);
     this.restifyContactRouter.configErrorRoutes(this.restifyApplication);
-  }
-
-  public bootstrap(port: number) {
-    let server = this.restifyApplication;
-      // listen on provided ports
-      server.listen(port, () => {
-        console.log("%s listening at %s", server.name, server.url);
-      });
+    // listen on provided ports
+    this.restifyApplication.listen(port, () => {
+      console.log("%s listening at %s", this.restifyApplication.name, this.restifyApplication.url);
+    });
   }
 }

@@ -16,7 +16,7 @@ export class HapiApplication implements INodeJsApplication {
   }
 
   public bootstrap(port: number) {
-    this.hapiApplication.connection({port: port});
+    this.hapiApplication.connection({port: port, routes: { cors: true }});
     // configure error routes
     this.hapiContactRouter.configErrorRoutes(this.hapiApplication);
     // configure API routes

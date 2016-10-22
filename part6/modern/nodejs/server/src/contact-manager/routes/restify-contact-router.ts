@@ -22,9 +22,10 @@ export class RestifyContactRouter {
   }
 
   public configApiRoutes(restifyApplication: restify.Server) {
-      var endpoint = "/api/contacts";
+      let endpoint = "/api/contacts";
         restifyApplication.get(endpoint, ((request: restify.Request, response: restify.Response, next: restify.Next) => {
-           this.contactService.getAll().then((contacts : IContact[]) => {
+        {
+            this.contactService.getAll().then((contacts : IContact[]) => {
                 response.json(contacts);
                 return next();
             });
@@ -44,5 +45,15 @@ export class RestifyContactRouter {
             this.contactService.delete(parseInt(request.body.id, 10)).then((contact : IContact) => response.json(contact));
             return next();
         }));
+
+        let idEndpoint = `${endpoint}/:id`;
+        restifyApplication.get(idEndpoint, ((request: restify.Request, response: restify.Response, next: restify.Next) => {
+        if(request.params.id) {
+            this.contactService.get(parseInt(request.params.id, 10)).then((contact : IContact) => {
+                response.json(contact);
+                return next();
+            });
+        }
+    }));
   }
 }

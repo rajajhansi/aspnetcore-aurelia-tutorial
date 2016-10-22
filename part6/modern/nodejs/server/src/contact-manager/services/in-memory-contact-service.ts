@@ -135,7 +135,7 @@ export class InMemoryContactService implements IContactService {
     this.isRequesting = true;
     return new Promise((resolve: any, reject: any) => {
       setTimeout(() => {
-        let found = contacts.filter((c: IContact) => c.id === id)[0];
+        let found = contacts.filter( (c: IContact) => c.id === id)[0];
         if(found) {
           console.log("Deleting Contact " + id);
           var index = this.getContactIndex(id);

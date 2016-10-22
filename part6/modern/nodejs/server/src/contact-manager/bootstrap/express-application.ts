@@ -13,13 +13,21 @@ export class ExpressApplication implements INodeJsApplication {
   constructor(private expressContactRouter: ExpressContactRouter) {
     // create expressjs application
     this.expressApplication = express();
+  }
+
+  public bootstrap(port: number) {
+      // enable CORS
+    this.expressApplication.use(function(request: express.Request, response: express.Response,
+        next: express.NextFunction) {
+        response.header("Access-Control-Allow-Origin", "*");
+        response.header("Access-Control-Allow-Methods", "*");
+        response.header("Access-Control-Allow-Headers", "*");
+        next();
+    });
 
     // configure API and error routes   
     this.expressContactRouter.configApiRoutes(this.expressApplication);
     this.expressContactRouter.configErrorRoutes(this.expressApplication);
-  }
-
-  public bootstrap(port: number) {
     this.expressApplication.set("port", port);
 
     // create http server

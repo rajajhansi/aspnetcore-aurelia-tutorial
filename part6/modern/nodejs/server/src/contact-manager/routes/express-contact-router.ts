@@ -27,11 +27,20 @@ export class ExpressContactRouter {
     }
 
     configApiRoutes(expressApplication: express.Application) {
-        this.contactRouter.route("/contacts")
+        this.contactRouter.route("/contacts/:id?")
         .get((request: express.Request, response: express.Response) => {
-           this.contactService.getAll().then((contacts : IContact[]) => {
-                response.json(contacts);
-            });
+            if(request.params.id) {
+                this.contactService.get(parseInt(request.params.id, 10)).then((contact : IContact) => {
+                    response.json(contact);
+                });
+            } else {
+                this.contactService.getAll().then((contacts : IContact[]) => {
+                    response.json(contacts);
+                });
+            }
+        })
+        .options((request: express.Request, response: express.Response) => {
+          response.sendStatus(200);
         })
         .post((request: express.Request, response: express.Response) => {
             this.contactService.save(request.body).then((contact: IContact) => response.json(contact));
