@@ -17,7 +17,7 @@
             "env": {
                 "NODE_ENV": "development",
                 "PORT": "8080",
-                "REST_FRAMEWORK": "restify"
+                "REST_FRAMEWORK": "express"
             },
             "console": "internalConsole",
             "sourceMaps": true,

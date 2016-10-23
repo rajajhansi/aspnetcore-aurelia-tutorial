@@ -39,9 +39,6 @@ export class ExpressContactRouter {
                 });
             }
         })
-        .options((request: express.Request, response: express.Response) => {
-          response.sendStatus(200);
-        })
         .post((request: express.Request, response: express.Response) => {
             this.contactService.save(request.body).then((contact: IContact) => response.json(contact));
         })

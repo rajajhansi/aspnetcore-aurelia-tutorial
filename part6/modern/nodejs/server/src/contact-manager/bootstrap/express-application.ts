@@ -2,6 +2,7 @@
 import * as express from "express";
 import * as debug from "debug";
 import * as http from "http";
+import * as cors from "cors";
 import {INodeJsApplication} from "./inodejs-application";
 import {ExpressContactRouter} from "../routes/express-contact-router";
 import {inject} from "aurelia-dependency-injection";
@@ -16,12 +17,9 @@ export class ExpressApplication implements INodeJsApplication {
   }
 
   public bootstrap(port: number) {
-      // enable CORS
-    this.expressApplication.use(function(request: express.Request, response: express.Response,
-        next: express.NextFunction) {
-        response.header("Access-Control-Allow-Origin", "*");
-        response.header("Access-Control-Allow-Methods", "*");
-        response.header("Access-Control-Allow-Headers", "*");
+    // enable CORS
+    this.expressApplication.use(cors(), (request: express.Request, response: express.Response, next: express.NextFunction) => {
+        console.log("CORS enabled for all routes");
         next();
     });
 

@@ -1,0 +1,46 @@
+<template>
+   <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Contacts</h3>
+    </div>
+    <div class="panel-body">
+      <div class='search-box'>
+        <form class='search-form'>
+          <input class='form-control' placeholder='e.g.: Raja, Jhansi' type='text' value.bind="keyword" input.delegate="search() & debounce:500">
+          <button class='btn btn-link search-btn' click.delegate="search()">
+            <i class='glyphicon glyphicon-search'></i>
+          </button>
+        </form>
+      </div>
+      <br/>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="pull-right">
+          <br/>
+          <button click.delegate="delete(selectedId)" disabled.bind="selectedId === 0" class="btn btn-danger btn-striped btn-sm" aria-label="Left Align">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" title="Remove Contact"></span>Remove Contact
+          </button>
+          <button class="btn btn-primary btn-striped btn-sm" click.delegate="create()">
+              <span class="glyphicon glyphicon-user" aria-hidden="true" title="New Contact"></span>New Contact
+          </button>
+          </div>
+          <br/>
+        </div>
+      </div>
+      <br/>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <div class="contact-list">
+            <ul class="list-group">
+              <li repeat.for="contact of contacts" class="list-group-item ${contact.id === $parent.selectedId ? 'active' : ''}">
+                <a route-href="route: contacts; params.bind: {id:contact.id}" click.delegate="$parent.select(contact)">
+                  <h4 class="list-group-item-heading">${!contact.firstName && !contact.lastName ? "New Contact" : contact.firstName + " " + contact.lastName }</h4>
+                  <p class="list-group-item-text">${contact.email}</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        <div>
+      </div>
+    </div>
+</template>

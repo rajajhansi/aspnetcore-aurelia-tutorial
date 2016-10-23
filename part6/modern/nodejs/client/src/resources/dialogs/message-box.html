@@ -1,0 +1,11 @@
+<template>
+    <ai-dialog>
+        <ai-dialog-body>
+            <h2>${message}</h2>
+        </ai-dialog-body>
+        <ai-dialog-footer>
+            <button click.trigger="controller.cancel()">Stay</button>
+            <button click.trigger="controller.ok(message)">Leave</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
